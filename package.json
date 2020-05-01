@@ -41,6 +41,6 @@
       "^.+\\.js$": "babel-jest"
     },
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "jsdom"
   }
 }
