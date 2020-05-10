@@ -16,3 +16,8 @@
 
 ### [R2 Interpreter](./src/wheels/interpreter/README.md)
 来自 [怎样写一个解释器](http://www.yinwang.org/blog-cn/2012/08/01/interpreter)，可以对闭包有一个更好的了解。
+
+## Game
+
+### Perfection game
+![Perfection game](./src/challenge/perfection-game/shortcut.jpg)

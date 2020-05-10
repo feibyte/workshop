@@ -40,9 +40,7 @@ class App extends React.Component {
         React.createElement('h1', null, 'Didact Stories'),
         React.createElement(
           'ul', null,
-          ...this.props.stories.map((story) => {
-            return React.createElement(Story, { name: story.name, url: story.url });
-          }),
+          ...this.props.stories.map((story) => React.createElement(Story, { name: story.name, url: story.url })),
         ),
       )
     );

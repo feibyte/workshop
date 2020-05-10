@@ -17,5 +17,6 @@ module.exports = {
     "no-plusplus": "off",
     "import/extensions": "off",
     "no-param-reassign": "off",
+    "class-methods-use-this": "off",
   },
 };
