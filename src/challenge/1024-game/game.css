@@ -1,0 +1,186 @@
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+div {
+  box-sizing: border-box;
+}
+
+.heading, .above-game {
+  width: 480px;
+  margin: auto;
+}
+
+.above-game {
+  margin-bottom: 28px;
+}
+
+.game-container {
+  position: relative;
+  margin: auto;
+  width: 480px;
+  height: 480px;
+  padding: 8px;
+  background-color: #000;
+  border-radius: 6px;
+}
+
+.grid-row {
+  display: flex;
+}
+
+.grid-cell {
+  width: 100px;
+  height: 100px;
+  margin: 8px;
+  border-radius: 3px;
+  background-color: rgba(238, 228, 218, 0.35);
+}
+
+.tile-container {
+  position: absolute;
+  left: 16px;
+  top: 16px;
+}
+
+.tile {
+  position: absolute;
+  border-radius: 3px;
+  transition: translate 0.6s;
+}
+.tile-inner {
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  font-size: 55px;
+  text-align: center;
+  border-radius: 3px;
+  color: #776E65;
+  background: #eee4da;
+}
+
+.tile-1 .tile-inner {
+  background: #eee4da;
+}
+.tile-2 .tile-inner {
+  background: #f5debc;
+  box-shadow:0 0 30px 10px rgba(243, 215, 116, 0), inset 0 0 0 1px rgba(255, 255, 255, 0);
+}
+.tile-4 .tile-inner {
+  color: #f9f6f2;
+  background: #efb964;
+  box-shadow:0 0 30px 10px rgba(243, 215, 116, 0), inset 0 0 0 1px rgba(255, 255, 255, 0);
+}
+.tile-8 .tile-inner {
+  color: #f9f6f2;
+  background: #ee8b22;
+}
+.tile-16 .tile-inner {
+  color: #f9f6f2;
+  background: #f26a21;
+}
+.tile-32 .tile-inner {
+  color: #f9f6f2;
+  background: #ea5e51;
+}
+.tile-64 .tile-inner {
+  color: #f9f6f2;
+  background: #ed1c24;
+}
+.tile-128 .tile-inner {
+  color: #f9f6f2;
+  background: #edcf72;
+  font-size: 45px;
+  box-shadow:0 0 30px 10px rgba(243, 215, 116, 0.2381), inset 0 0 0 1px rgba(255, 255, 255, 0.14286);
+}
+.tile-256 .tile-inner {
+  color: #f9f6f2;
+  background: #edcc61;
+  font-size: 45px;
+  box-shadow:0 0 30px 10px rgba(243, 215, 116, 0.31746), inset 0 0 0 1px rgba(255, 255, 255, 0.19048);
+}
+.tile-512 .tile-inner {
+  color: #f9f6f2;
+  background: #edc850;
+  font-size: 45px;
+  box-shadow:0 0 30px 10px rgba(243, 215, 116, 0.39683), inset 0 0 0 1px rgba(255, 255, 255, 0.2381);
+}
+.tile-1024 .tile-inner {
+  color: #f9f6f2;
+  background: #366f9b;
+  font-size: 35px;
+  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.47619), inset 0 0 0 1px rgba(255, 255, 255, 0.28571);
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.tile-new .tile-inner {
+  animation: appear 200ms ease 100ms;
+  animation-fill-mode: backwards;
+}
+
+.tile-merged .tile-inner {
+  z-index: 20;
+  animation: pop 200ms ease 100ms;
+  animation-fill-mode: backwards;
+}
+
+.hidden {
+  display: none;
+}
+
+.game-message {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(238, 228, 218, 0.5);
+  color: #FFF;
+  z-index: 100;
+  text-align: center;
+}
+.game-message p {
+  margin-top: 180px;
+  line-height: 60px;
+  font-size: 60px;
+}
+.retry-button {
+  height: 40px;
+  line-height: 42px;
+  margin-left: 9px;
+  border-radius: 3px;
+  background: #8f7a66;
+  border: none;
+  color: white;
+  padding: 0 20px;
+  font-size: 16px;
+}
