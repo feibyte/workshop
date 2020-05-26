@@ -66,6 +66,20 @@ class MaxHeap {
     }
     return sortedArray;
   }
+
+  delete(i) {
+    if (i >= this.array.length) {
+      throw Error('index out of heap bound');
+    }
+    const tail = this.array.pop();
+    if (this.array[i] > tail) {
+      this.array[i] = tail;
+      this.heapify(i);
+    } else {
+      this.array[i] = tail;
+      this.swim(i);
+    }
+  }
 }
 
 export default MaxHeap;

@@ -23,4 +23,4 @@
 ![Perfection game](./src/challenge/perfection-game/shortcut.jpg)
 
 
-### [1024 game](./src/challenge/1024-game/index.html)
+### [1024 game](./src/challenge/1024-game/README.md)
