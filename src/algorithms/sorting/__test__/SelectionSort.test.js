@@ -1,5 +1,5 @@
 import SelectionSort from '../SelectionSort';
-import { SortTester } from '../../SortTester';
+import { SortTester } from '../SortTester';
 
 describe('SelectionSort', () => {
   it('should sort array', () => {
