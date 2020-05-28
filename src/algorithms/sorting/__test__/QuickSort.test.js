@@ -1,23 +1,59 @@
+// eslint-disable-next-line max-classes-per-file
 import QuickSort from '../QuickSort';
 import { SortTester } from '../SortTester';
 
 describe('QuickSort', () => {
+  class SortWrapper {
+    static sort(array, compare) {
+      const sorter = new QuickSort(compare);
+      return sorter.sort(array);
+    }
+  }
   it('should sort array', () => {
-    SortTester.testSort(QuickSort);
+    SortTester.testSort(SortWrapper);
+  });
+
+  it('should sort array with custom comparator', () => {
+    SortTester.testSortWithCustomComparator(SortWrapper);
   });
 
   xit('should do stable sorting', () => {
-    SortTester.testSortStability(QuickSort);
+    SortTester.testSortStability(SortWrapper);
   });
 
   it('should sort negative numbers', () => {
-    SortTester.testNegativeNumbersSort(QuickSort);
+    SortTester.testNegativeNumbersSort(SortWrapper);
+  });
+});
+
+describe('QuickSort in three parts', () => {
+  class SortWrapper {
+    static sort(array, compare) {
+      const sorter = new QuickSort(compare);
+      return sorter.sortInThreeParts(array);
+    }
+  }
+  it('should sort array in three parts', () => {
+    SortTester.testSort(SortWrapper);
   });
 
-  it('should split three parts', () => {
-    const arr = [2, 3, 4, 2, 1, 0, 0, 4, 3, 4, 2];
-    const [q, t] = QuickSort.partitionWithSameElements(arr, 0, arr.length - 1);
-    expect(q).toBe(3);
-    expect(t).toBe(5);
+  it('should sort array with custom comparator', () => {
+    SortTester.testSortWithCustomComparator(SortWrapper);
+  });
+});
+
+describe('QuickSort in hoare way', () => {
+  class SortWrapper {
+    static sort(array, compare) {
+      const sorter = new QuickSort(compare);
+      return sorter.hoareSort(array);
+    }
+  }
+  it('should sort array in three parts', () => {
+    SortTester.testSort(SortWrapper);
+  });
+
+  it('should sort negative numbers', () => {
+    SortTester.testNegativeNumbersSort(SortWrapper);
   });
 });
