@@ -37,6 +37,21 @@ class QuickSort {
     return array;
   }
 
+  select(array, p, r, i) {
+    const q = this.partition(array, p, r);
+    if (q === i) {
+      return array[i];
+    }
+    if (q < i) {
+      return this.select(array, q + 1, r, i);
+    }
+    return this.select(array, p, q - 1, i);
+  }
+
+  findNth(array, n) {
+    return this.select(array, 0, array.length - 1, n);
+  }
+
   partitionWithSameElements(array, p, r) {
     const pivot = array[r];
     let i = p - 1;

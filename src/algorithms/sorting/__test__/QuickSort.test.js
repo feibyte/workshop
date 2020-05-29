@@ -24,6 +24,11 @@ describe('QuickSort', () => {
   it('should sort negative numbers', () => {
     SortTester.testNegativeNumbersSort(SortWrapper);
   });
+
+  it('should find nth number', () => {
+    const sorter = new QuickSort();
+    expect(sorter.findNth([1, 3, 5, 7, 9], 2)).toBe(5);
+  });
 });
 
 describe('QuickSort in three parts', () => {
