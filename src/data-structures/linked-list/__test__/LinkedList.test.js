@@ -40,4 +40,11 @@ describe('LinkedList', () => {
     list.reverse();
     expect(list.toArray()).toEqual([1, 4, 16]);
   });
+
+  it('should works with custom comparator', () => {
+    const list = new LinkedList((objA, objB) => objA.key === objB.key);
+    list.insert({ key: 3 });
+    list.insert({ key: 4 });
+    expect(list.search({ key: 4 })).toBeTruthy();
+  });
 });

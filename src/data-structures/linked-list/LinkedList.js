@@ -1,15 +1,19 @@
 // Here's a singly link list
+
+const defaultEquals = (elementA, elementB) => elementA === elementB;
+
 class LinkedList {
-  constructor() {
+  constructor(equals = defaultEquals) {
     this.head = null;
     this.length = 0;
+    this.equals = equals;
   }
 
   search(element) {
     let currentNode = this.head;
     while (currentNode) {
-      if (currentNode.element === element) {
-        return currentNode;
+      if (this.equals(currentNode.element, element)) {
+        return currentNode.element;
       }
       currentNode = currentNode.next;
     }
@@ -29,13 +33,13 @@ class LinkedList {
     if (!this.head) {
       throw Error('List is empty');
     }
-    if (this.head.element === element) {
+    if (this.equals(this.head.element, element)) {
       this.head = this.head.next;
       return;
     }
     let pre = this.head;
     while (pre.next) {
-      if (pre.next.element === element) {
+      if (this.equals(pre.next.element, element)) {
         pre.next = pre.next.next;
         this.length--;
         return;
