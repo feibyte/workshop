@@ -10,4 +10,10 @@ describe('ChainingHashTable', () => {
       type: 'fish',
     });
   });
+
+  it('return correct hash code', () => {
+    const hashTable = new ChainingHashTable();
+    expect(hashTable.hashCode('A')).toEqual(0x41);
+    expect(hashTable.hashCode('Hello')).toEqual(0x042628b2);
+  });
 });
