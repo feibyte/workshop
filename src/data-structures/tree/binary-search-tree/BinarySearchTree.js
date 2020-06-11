@@ -1,13 +1,4 @@
-
-// eslint-disable-next-line max-classes-per-file
-class TreeNode {
-  constructor(key) {
-    this.key = key;
-    this.parent = null;
-    this.left = null;
-    this.right = null;
-  }
-}
+import TreeNode from '../TreeNode';
 
 class BinarySearchTree {
   constructor() {
@@ -75,13 +66,12 @@ class BinarySearchTree {
     newNode.parent = parent;
     if (!parent) {
       this.root = newNode;
-      return;
-    }
-    if (key > parent.key) {
+    } else if (key > parent.key) {
       parent.right = newNode;
     } else {
       parent.left = newNode;
     }
+    return newNode;
   }
 
   predecessor(node) {
