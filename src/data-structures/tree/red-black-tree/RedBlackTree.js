@@ -1,26 +1,30 @@
-// eslint-disable-next-line max-classes-per-file
-
 import BinarySearchTree from '../binary-search-tree/BinarySearchTree';
+import TreeNode from '../TreeNode';
 
 export const COLOR = { RED: 'RED', BLACK: 'BLACK' };
-// class TreeNode {
-//   constructor(key) {
-//     this.key = key;
-//     this.parent = null;
-//     // Here, we're not setting NIL for leaves.
-//     this.left = null;
-//     this.right = null;
-//     this.color = COLOR.RED;
-//   }
-// }
+// 在插入操作中，不需要 NIL 也能处理。在红黑树删除的过程中，需要借助哨兵节点 NIL.
+const NIL = new TreeNode();
+NIL.meta.color = COLOR.BLACK;
+
+export const isNil = (node) => node === NIL;
 
 class RedBlackTree extends BinarySearchTree {
+  constructor() {
+    super();
+    this.root = NIL;
+    this.bh = 1;
+  }
+
+  isNil(node) {
+    return isNil(node);
+  }
+
   leftRotate(node) {
     const grandNode = node.parent;
     const newParent = node.right;
 
     node.right = newParent.left;
-    if (newParent.left) {
+    if (!this.isNil(newParent.left)) {
       newParent.left.parent = node;
     }
 
@@ -28,7 +32,7 @@ class RedBlackTree extends BinarySearchTree {
     node.parent = newParent;
     newParent.parent = grandNode;
 
-    if (!grandNode) {
+    if (this.isNil(grandNode)) {
       this.root = newParent;
     } else if (grandNode.left === node) {
       grandNode.left = newParent;
@@ -42,7 +46,7 @@ class RedBlackTree extends BinarySearchTree {
     const newParent = node.left;
 
     node.left = newParent.right;
-    if (newParent.right) {
+    if (!this.isNil(newParent.right)) {
       newParent.right.parent = node;
     }
 
@@ -50,7 +54,7 @@ class RedBlackTree extends BinarySearchTree {
     node.parent = newParent;
     newParent.parent = grandNode;
 
-    if (!grandNode) {
+    if (this.isNil(grandNode)) {
       this.root = newParent;
     } else if (grandNode.left === node) {
       grandNode.left = newParent;
@@ -59,13 +63,22 @@ class RedBlackTree extends BinarySearchTree {
     }
   }
 
+  createNewNode(key) {
+    const newNode = new TreeNode(key);
+    newNode.left = NIL;
+    newNode.right = NIL;
+    newNode.parent = NIL;
+    this.markRed(newNode);
+    return newNode;
+  }
+
   insert(key) {
     const newNode = super.insert(key);
     this.markRed(newNode);
-    this.balance(newNode);
+    this.insertFixup(newNode);
   }
 
-  getUncle(node) {
+  getSibling(node) {
     if (node.parent.left === node) {
       return node.parent.right;
     }
@@ -88,8 +101,11 @@ class RedBlackTree extends BinarySearchTree {
     return node.meta.color === COLOR.RED;
   }
 
-  balance(node) {
-    if (!node.parent) {
+  insertFixup(node) {
+    if (this.isNil(node.parent)) {
+      if (this.isRed(node)) {
+        this.bh++;
+      }
       this.markBlack(node);
       return;
     }
@@ -97,13 +113,13 @@ class RedBlackTree extends BinarySearchTree {
       return;
     }
     // otherwise, isRed(node.parent) && node.parent.parent !== null
-    const uncle = this.getUncle(node.parent);
+    const uncle = this.getSibling(node.parent);
 
-    if (uncle && this.isRed(uncle)) {
+    if (!this.isNil(uncle) && this.isRed(uncle)) {
       this.markBlack(node.parent);
       this.markBlack(uncle);
       this.markRed(node.parent.parent);
-      this.balance(node.parent.parent);
+      this.insertFixup(node.parent.parent);
       return;
     }
     // uncle is null or uncle is BLACK
@@ -126,6 +142,115 @@ class RedBlackTree extends BinarySearchTree {
     } else { // node === node.parent.left
       this.rightRotate(grandParent);
     }
+  }
+
+  delete(node) {
+    let originalColor = node.meta.color;
+    let deletedNode;
+    if (this.isNil(node.left)) {
+      deletedNode = node.right;
+      this.transplant(node, node.right);
+    } else if (this.isNil(node.right)) {
+      deletedNode = node.left;
+      this.transplant(node, node.left);
+    } else {
+      const pivot = this.getMinimum(node.right);
+      deletedNode = pivot.right;
+      originalColor = pivot.meta.color;
+      if (pivot.parent === node) {
+        deletedNode.parent = pivot; // Here, just in case the deleteNode is NIL
+      } else {
+        this.transplant(pivot, pivot.right);
+        pivot.right = node.right;
+        pivot.right.parent = pivot;
+      }
+      this.transplant(node, pivot);
+      pivot.left = node.left;
+      node.left.parent = pivot;
+      pivot.meta.color = node.meta.color;
+    }
+    if (originalColor === COLOR.BLACK) {
+      if (this.isRed(deletedNode)) {
+        this.markBlack(deletedNode);
+      } else {
+        this.deleteFixUp(deletedNode);
+      }
+    }
+  }
+
+  deleteFixUp(node) {
+    // node is root
+    if (this.isNil(node.parent)) {
+      this.bh--;
+      return;
+    }
+
+    let sibling = this.getSibling(node);
+    //      P(Black)
+    // N(Black)     S(Red)
+    // 旋转 P 节点，P 与 S 交换颜色，这一步只是将兄弟节点调整为黑色情况，并没有修复黑色节点数问题。
+    if (this.isRed(sibling)) {
+      this.markRed(node.parent);
+      this.markBlack(sibling);
+      if (node.parent.left === node) {
+        this.leftRotate(node.parent);
+      } else {
+        this.rightRotate(node.parent);
+      }
+    }
+
+    //      P(Black)
+    // N(Black)     S(Black) S 有两个黑色子节点
+    sibling = this.getSibling(node);
+    if (this.isBlack(sibling.left) && this.isBlack(sibling.right)) {
+      this.markRed(sibling);
+      if (this.isRed(node.parent)) {
+        this.markBlack(node.parent);
+      } else {
+        this.deleteFixUp(node.parent); // N 和 S 黑高平衡，但是 P 树黑高少 1 需要继续调整
+      }
+      return;
+    }
+
+    sibling = this.getSibling(node);
+    // S is black, node is left node, but left child is red.
+    if (node === node.parent.left && this.isBlack(sibling.right)) {
+      this.markBlack(sibling.left);
+      this.markRed(sibling);
+      this.rightRotate(sibling);
+    } else if (node === node.parent.right && this.isBlack(sibling.left)) {
+      this.markBlack(sibling.right);
+      this.markRed(sibling);
+      this.leftRotate(sibling);
+    }
+
+    sibling = this.getSibling(node);
+    sibling.meta.color = node.parent.meta.color;
+    this.markBlack(node.parent);
+
+    if (node === node.parent.left) {
+      this.markBlack(sibling.right);
+      this.leftRotate(node.parent);
+    } else {
+      this.markBlack(sibling.left);
+      this.rightRotate(node.parent);
+    }
+  }
+
+  findBlackNode(bh) {
+    // Assert(bh <= this.bh);
+    let node = this.root;
+    let i = 0;
+    while (!this.isNil(node)) {
+      if (this.bh - i === bh) {
+        break;
+      }
+      if (this.isBlack(node)) {
+        i++;
+      }
+      node = node.right;
+    }
+    return node;
   }
 }
 

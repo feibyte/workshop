@@ -20,7 +20,9 @@ describe('BinarySearchTree', () => {
   const toArray = (tree) => {
     const result = [];
     tree.traverse((node) => {
-      result.push(node.key);
+      if (node) {
+        result.push(node.key);
+      }
     });
     return result;
   };
@@ -71,5 +73,18 @@ describe('BinarySearchTree', () => {
     tree.delete(tree.search(20));
     tree.delete(tree.search(2));
     expect(toArray(tree)).toEqual([3, 4, 7, 9, 13, 17, 18]);
+  });
+
+  it('should return a new tree when calling persistInsert', () => {
+    const tree = makeTree();
+    const secondTree = tree.persistInsert(50);
+    const thirdTree = secondTree.persistInsert(1);
+    expect(secondTree.search(50)).toBeTruthy();
+    expect(thirdTree.search(1)).toBeTruthy();
+    expect(thirdTree.search(6)).toBeTruthy();
+    expect(thirdTree.search(18)).toBeTruthy();
+    expect(secondTree.search(1)).toBeFalsy();
+    expect(tree.search(50)).toBeFalsy();
+    expect(tree.search(1)).toBeFalsy();
   });
 });

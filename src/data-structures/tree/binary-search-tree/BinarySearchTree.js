@@ -5,11 +5,25 @@ class BinarySearchTree {
     this.root = null;
   }
 
+  isNil(node) {
+    return !node;
+  }
+
   inorderTraverse(node, callback) {
-    if (node) {
+    if (!this.isNil(node)) {
       this.inorderTraverse(node.left, callback);
       callback(node);
       this.inorderTraverse(node.right, callback);
+    } else {
+      callback(node);
+    }
+  }
+
+  preOrderTraverse(node, callback) {
+    callback(node);
+    if (!this.isNil(node)) {
+      this.preOrderTraverse(node.left, callback);
+      this.preOrderTraverse(node.right, callback);
     }
   }
 
@@ -19,7 +33,7 @@ class BinarySearchTree {
 
   search(key) {
     let node = this.root;
-    while (node && node.key !== key) {
+    while (!this.isNil(node) && node.key !== key) {
       if (key > node.key) {
         node = node.right;
       } else {
@@ -30,7 +44,7 @@ class BinarySearchTree {
   }
 
   getMinimum(node) {
-    while (node && node.left) {
+    while (!this.isNil(node) && !this.isNil(node.left)) {
       node = node.left;
     }
     return node;
@@ -41,7 +55,7 @@ class BinarySearchTree {
   }
 
   getMaximum(node) {
-    while (node && node.right) {
+    while (!this.isNil(node) && !this.isNil(node.right)) {
       node = node.right;
     }
     return node;
@@ -51,11 +65,15 @@ class BinarySearchTree {
     return this.getMaximum(this.root);
   }
 
+  createNewNode(key) {
+    return new TreeNode(key);
+  }
+
   insert(key) {
-    const newNode = new TreeNode(key);
+    const newNode = this.createNewNode(key);
     let node = this.root;
-    let parent = null;
-    while (node) {
+    let parent;
+    while (!this.isNil(node)) {
       parent = node;
       if (key > node.key) {
         node = node.right;
@@ -63,23 +81,43 @@ class BinarySearchTree {
         node = node.left;
       }
     }
-    newNode.parent = parent;
-    if (!parent) {
+    if (parent) {
+      newNode.parent = parent;
+    }
+    if (this.isNil(newNode.parent)) {
       this.root = newNode;
-    } else if (key > parent.key) {
-      parent.right = newNode;
+    } else if (key > newNode.parent.key) {
+      newNode.parent.right = newNode;
     } else {
-      parent.left = newNode;
+      newNode.parent.left = newNode;
     }
     return newNode;
   }
 
+  // 持久二叉树， 插入节点会返回一个新的根节点。
+  persistInsert(key) {
+    const insertInto = (node) => {
+      if (this.isNil(node)) {
+        return this.createNewNode(key);
+      }
+      if (key > node.key) {
+        const child = insertInto(node.right);
+        return { ...node, right: child };
+      }
+      const child = insertInto(node.left);
+      return { ...node, left: child };
+    };
+    const newTree = new BinarySearchTree();
+    newTree.root = insertInto(this.root);
+    return newTree;
+  }
+
   predecessor(node) {
-    if (node.left) {
+    if (!this.isNil(node.left)) {
       return this.getMaximum(node.left);
     }
     let { parent } = node;
-    while (parent && parent.left === node) {
+    while (!this.isNil(parent) && parent.left === node) {
       node = parent;
       parent = node.parent;
     }
@@ -87,11 +125,11 @@ class BinarySearchTree {
   }
 
   successor(node) {
-    if (node.right) {
+    if (!this.isNil(node.right)) {
       return this.getMinimum(node.right);
     }
     let { parent } = node;
-    while (parent && parent.right === node) {
+    while (!this.isNil(parent) && parent.right === node) {
       node = parent;
       parent = node.parent;
     }
@@ -100,11 +138,9 @@ class BinarySearchTree {
 
   transplant(nodeU, nodeV) {
     const { parent } = nodeU;
-    if (!parent) {
+    if (this.isNil(parent)) {
       this.root = nodeV;
-      return;
-    }
-    if (nodeU === nodeU.parent.left) {
+    } else if (nodeU === nodeU.parent.left) {
       nodeU.parent.left = nodeV;
     } else {
       nodeU.parent.right = nodeV;
@@ -115,11 +151,11 @@ class BinarySearchTree {
   }
 
   delete(node) {
-    if (!node.left) {
+    if (this.isNil(node.left)) {
       this.transplant(node, node.right);
       return;
     }
-    if (!node.right) {
+    if (this.isNil(node.right)) {
       this.transplant(node, node.left);
       return;
     }
@@ -132,6 +168,22 @@ class BinarySearchTree {
     this.transplant(node, pivot);
     pivot.left = node.left;
     node.left.parent = pivot;
+  }
+
+  printTree() {
+    const result = [];
+    const queue = [this.root];
+    while (queue.length) {
+      const node = queue.shift();
+      if (this.isNil(node)) {
+        result.push(null);
+      } else {
+        queue.push(node.left);
+        queue.push(node.right);
+        result.push(node.key);
+      }
+    }
+    return result;
   }
 }
 

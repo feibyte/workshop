@@ -1,4 +1,4 @@
-import RedBlackTree, { COLOR } from './RedBlackTree';
+import RedBlackTree, { COLOR, isNil } from './RedBlackTree';
 
 
 describe('RedBlackTree', () => {
@@ -30,11 +30,11 @@ describe('RedBlackTree', () => {
   const isRed = (node) => node.meta.color === COLOR.RED;
 
   const isBalance = (node) => {
-    if (!node) {
+    if (isNil(node)) {
       return [true, 1];
     }
     // 根节点非黑色
-    if (!node.parent && !isBlack(node)) {
+    if (isNil(node.parent) && !isBlack(node)) {
       return [false, 0];
     }
 
@@ -56,6 +56,51 @@ describe('RedBlackTree', () => {
 
   it('should be valid when build a tree by inserting nodes', () => {
     const tree = makeTree();
+    expect(isBalance(tree.root)[0]).toBe(true);
+  });
+
+  it('should find it after inserting a number', () => {
+    const tree = new RedBlackTree();
+    tree.insert(41);
+    tree.insert(38);
+    tree.insert(31);
+    tree.insert(12);
+    tree.insert(19);
+    tree.insert(8);
+    expect(tree.search(12).key).toBe(12);
+    expect(tree.search(38).key).toBe(38);
+    expect(tree.search(8).key).toBe(8);
+  });
+
+  it('should return return min node when calling minimum', () => {
+    const tree = makeTree();
+    expect(tree.minimum().key).toBe(2);
+  });
+
+  it('should return return max node when calling maximum', () => {
+    const tree = makeTree();
+    expect(tree.maximum().key).toBe(20);
+  });
+
+  it('should be valid after deleting an node', () => {
+    const tree = new RedBlackTree();
+    tree.insert(41);
+    tree.insert(38);
+    tree.insert(31);
+    tree.insert(12);
+    tree.insert(19);
+    tree.insert(8);
+    expect(isBalance(tree.root)[0]).toBe(true);
+    tree.delete(tree.search(8));
+    expect(isBalance(tree.root)[0]).toBe(true);
+    tree.delete(tree.search(12));
+    expect(isBalance(tree.root)[0]).toBe(true);
+    tree.delete(tree.search(19));
+    expect(isBalance(tree.root)[0]).toBe(true);
+    tree.delete(tree.search(31));
+    tree.delete(tree.search(38));
+    expect(isBalance(tree.root)[0]).toBe(true);
+    tree.delete(tree.search(41));
     expect(isBalance(tree.root)[0]).toBe(true);
   });
 });
