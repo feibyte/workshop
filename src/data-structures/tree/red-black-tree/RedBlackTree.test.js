@@ -18,13 +18,6 @@ describe('RedBlackTree', () => {
     return tree;
   };
 
-  const height = (node) => {
-    if (!node) {
-      return 0;
-    }
-    return 1 + Math.max(height(node.left), height(node.right));
-  };
-
   const isBlack = (node) => node.meta.color === COLOR.BLACK;
 
   const isRed = (node) => node.meta.color === COLOR.RED;

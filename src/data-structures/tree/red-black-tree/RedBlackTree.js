@@ -13,10 +13,11 @@ class RedBlackTree extends BinarySearchTree {
     super();
     this.root = NIL;
     this.bh = 1;
+    this.NIL = NIL;
   }
 
   isNil(node) {
-    return isNil(node);
+    return node === this.NIL;
   }
 
   createNewNode(key) {
@@ -28,8 +29,11 @@ class RedBlackTree extends BinarySearchTree {
     return newNode;
   }
 
+  insertCallBack() {}
+
   insert(key) {
     const newNode = super.insert(key);
+    this.insertCallBack(newNode);
     this.markRed(newNode);
     this.insertFixup(newNode);
   }
@@ -100,6 +104,8 @@ class RedBlackTree extends BinarySearchTree {
     }
   }
 
+  deleteCallback() {}
+
   delete(node) {
     let originalColor = node.meta.color;
     let deletedNode;
@@ -125,6 +131,7 @@ class RedBlackTree extends BinarySearchTree {
       node.left.parent = pivot;
       pivot.meta.color = node.meta.color;
     }
+    this.deleteCallback(deletedNode.parent);
     if (originalColor === COLOR.BLACK) {
       if (this.isRed(deletedNode)) {
         this.markBlack(deletedNode);
