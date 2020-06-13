@@ -19,50 +19,6 @@ class RedBlackTree extends BinarySearchTree {
     return isNil(node);
   }
 
-  leftRotate(node) {
-    const grandNode = node.parent;
-    const newParent = node.right;
-
-    node.right = newParent.left;
-    if (!this.isNil(newParent.left)) {
-      newParent.left.parent = node;
-    }
-
-    newParent.left = node;
-    node.parent = newParent;
-    newParent.parent = grandNode;
-
-    if (this.isNil(grandNode)) {
-      this.root = newParent;
-    } else if (grandNode.left === node) {
-      grandNode.left = newParent;
-    } else {
-      grandNode.right = newParent;
-    }
-  }
-
-  rightRotate(node) {
-    const grandNode = node.parent;
-    const newParent = node.left;
-
-    node.left = newParent.right;
-    if (!this.isNil(newParent.right)) {
-      newParent.right.parent = node;
-    }
-
-    newParent.right = node;
-    node.parent = newParent;
-    newParent.parent = grandNode;
-
-    if (this.isNil(grandNode)) {
-      this.root = newParent;
-    } else if (grandNode.left === node) {
-      grandNode.left = newParent;
-    } else {
-      grandNode.right = newParent;
-    }
-  }
-
   createNewNode(key) {
     const newNode = new TreeNode(key);
     newNode.left = NIL;
