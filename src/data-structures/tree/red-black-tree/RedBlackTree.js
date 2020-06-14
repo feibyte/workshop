@@ -6,11 +6,9 @@ export const COLOR = { RED: 'RED', BLACK: 'BLACK' };
 const NIL = new TreeNode();
 NIL.meta.color = COLOR.BLACK;
 
-export const isNil = (node) => node === NIL;
-
 class RedBlackTree extends BinarySearchTree {
-  constructor() {
-    super();
+  constructor(compare) {
+    super(compare);
     this.root = NIL;
     this.bh = 1;
     this.NIL = NIL;
@@ -214,6 +212,34 @@ class RedBlackTree extends BinarySearchTree {
       node = node.right;
     }
     return node;
+  }
+
+  isBalanceTree() {
+    const isBalance = (node) => {
+      if (this.isNil(node)) {
+        return [true, 1];
+      }
+      // 根节点非黑色
+      if (this.isNil(node.parent) && !this.isBlack(node)) {
+        return [false, 0];
+      }
+
+      let blacks = 0;
+      if (this.isRed(node)) {
+        if ((node.left && this.isRed(node.left)) || (node.right && this.isRed(node.right))) {
+          return [false, 0];
+        }
+      } else {
+        blacks = 1;
+      }
+
+      const leftResult = isBalance(node.left);
+      const rightResult = isBalance(node.right);
+      const isValid = leftResult[0] && rightResult[0] && leftResult[1] === rightResult[1];
+
+      return [isValid, leftResult[1] + blacks];
+    };
+    return isBalance(this.root)[0];
   }
 }
 

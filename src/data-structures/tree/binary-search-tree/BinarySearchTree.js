@@ -1,8 +1,11 @@
 import TreeNode from '../TreeNode';
 
+const defaultComparator = (pre, next) => pre - next;
+
 class BinarySearchTree {
-  constructor() {
+  constructor(compare = defaultComparator) {
     this.root = null;
+    this.compare = compare;
   }
 
   isNil(node) {
@@ -33,8 +36,8 @@ class BinarySearchTree {
 
   search(key) {
     let node = this.root;
-    while (!this.isNil(node) && node.key !== key) {
-      if (key > node.key) {
+    while (!this.isNil(node) && this.compare(node.key, key) !== 0) {
+      if (this.compare(key, node.key) > 0) {
         node = node.right;
       } else {
         node = node.left;
@@ -75,7 +78,7 @@ class BinarySearchTree {
     let parent;
     while (!this.isNil(node)) {
       parent = node;
-      if (key > node.key) {
+      if (this.compare(key, node.key) > 0) {
         node = node.right;
       } else {
         node = node.left;
@@ -86,7 +89,7 @@ class BinarySearchTree {
     }
     if (this.isNil(newNode.parent)) {
       this.root = newNode;
-    } else if (key > newNode.parent.key) {
+    } else if (this.compare(key, newNode.parent.key) > 0) {
       newNode.parent.right = newNode;
     } else {
       newNode.parent.left = newNode;
@@ -100,7 +103,7 @@ class BinarySearchTree {
       if (this.isNil(node)) {
         return this.createNewNode(key);
       }
-      if (key > node.key) {
+      if (this.compare(key, node.key) > 0) {
         const child = insertInto(node.right);
         return { ...node, right: child };
       }
@@ -150,6 +153,9 @@ class BinarySearchTree {
     }
   }
 
+  // calculate properties of oldParent, newParent
+  recalculateOnRotation() {}
+
   leftRotate(node) {
     const grandNode = node.parent;
     const newParent = node.right;
@@ -170,6 +176,7 @@ class BinarySearchTree {
     } else {
       grandNode.right = newParent;
     }
+    this.recalculateOnRotation(node, newParent);
   }
 
   rightRotate(node) {
@@ -192,6 +199,7 @@ class BinarySearchTree {
     } else {
       grandNode.right = newParent;
     }
+    this.recalculateOnRotation(node, newParent);
   }
 
   delete(node) {

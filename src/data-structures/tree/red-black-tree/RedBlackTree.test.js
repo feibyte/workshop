@@ -1,4 +1,4 @@
-import RedBlackTree, { COLOR, isNil } from './RedBlackTree';
+import RedBlackTree from './RedBlackTree';
 
 
 describe('RedBlackTree', () => {
@@ -18,38 +18,9 @@ describe('RedBlackTree', () => {
     return tree;
   };
 
-  const isBlack = (node) => node.meta.color === COLOR.BLACK;
-
-  const isRed = (node) => node.meta.color === COLOR.RED;
-
-  const isBalance = (node) => {
-    if (isNil(node)) {
-      return [true, 1];
-    }
-    // 根节点非黑色
-    if (isNil(node.parent) && !isBlack(node)) {
-      return [false, 0];
-    }
-
-    let blacks = 0;
-    if (isRed(node)) {
-      if ((node.left && isRed(node.left)) || (node.right && isRed(node.right))) {
-        return [false, 0];
-      }
-    } else {
-      blacks = 1;
-    }
-
-    const leftResult = isBalance(node.left);
-    const rightResult = isBalance(node.right);
-    const isValid = leftResult[0] && rightResult[0] && leftResult[1] === rightResult[1];
-
-    return [isValid, leftResult[1] + blacks];
-  };
-
   it('should be valid when build a tree by inserting nodes', () => {
     const tree = makeTree();
-    expect(isBalance(tree.root)[0]).toBe(true);
+    expect(tree.isBalanceTree()).toBe(true);
   });
 
   it('should find it after inserting a number', () => {
@@ -83,17 +54,17 @@ describe('RedBlackTree', () => {
     tree.insert(12);
     tree.insert(19);
     tree.insert(8);
-    expect(isBalance(tree.root)[0]).toBe(true);
+    expect(tree.isBalanceTree()).toBe(true);
     tree.delete(tree.search(8));
-    expect(isBalance(tree.root)[0]).toBe(true);
+    expect(tree.isBalanceTree()).toBe(true);
     tree.delete(tree.search(12));
-    expect(isBalance(tree.root)[0]).toBe(true);
+    expect(tree.isBalanceTree()).toBe(true);
     tree.delete(tree.search(19));
-    expect(isBalance(tree.root)[0]).toBe(true);
+    expect(tree.isBalanceTree()).toBe(true);
     tree.delete(tree.search(31));
     tree.delete(tree.search(38));
-    expect(isBalance(tree.root)[0]).toBe(true);
+    expect(tree.isBalanceTree()).toBe(true);
     tree.delete(tree.search(41));
-    expect(isBalance(tree.root)[0]).toBe(true);
+    expect(tree.isBalanceTree()).toBe(true);
   });
 });

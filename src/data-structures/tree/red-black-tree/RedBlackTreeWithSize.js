@@ -22,18 +22,9 @@ class RedBlackTreeWithSize extends RedBlackTree {
     }
   }
 
-  leftRotate(node) {
-    const parentSize = node.meta.size;
-    node.meta.size = node.left.meta.size + node.right.left.meta.size + 1;
-    node.right.meta.size = parentSize;
-    super.leftRotate(node);
-  }
-
-  rightRotate(node) {
-    const parentSize = node.meta.size;
-    node.meta.size = node.right.meta.size + node.left.right.meta.size + 1;
-    node.left.meta.size = parentSize;
-    super.rightRotate(node);
+  recalculateOnRotation(oldParent, newParent) {
+    oldParent.meta.size = oldParent.left.meta.size + oldParent.right.meta.size + 1;
+    newParent.meta.size = newParent.left.meta.size + newParent.left.meta.size + 1;
   }
 
   select(i) {
