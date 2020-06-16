@@ -1,5 +1,6 @@
 // 矩阵链乘法问题
 // 相似问题： https://leetcode.com/problems/burst-balloons/
+// dp[i][j] = min(dp[i][k] + dp[k + 1][j] + p[i - 1][k][j])
 
 const printOptimalParens = (s, i, j) => {
   if (i === j) {
