@@ -1,5 +1,6 @@
 import lcs from '../longest-common-subsequence';
 import longestInCreasingSubsequence from '../longest-increasing-subsequence';
+import longestPalindromeSubsequence from '../longest-palindrome-subsequence';
 import matrixChainOrder from '../matrix-chain-order';
 import optimalBST from '../optimal-binary-search-tree';
 
@@ -27,5 +28,10 @@ describe('Dynamic Programming', () => {
     const p = [0, 0.04, 0.06, 0.08, 0.02, 0.1, 0.12, 0.14];
     const q = [0.06, 0.06, 0.06, 0.06, 0.05, 0.05, 0.05, 0.05];
     expect(optimalBST(p, q)).toEqual(3.12);
+  });
+
+  it('return longest palindrome subsequence', () => {
+    expect(longestPalindromeSubsequence('character')).toEqual('carac');
+    expect(longestPalindromeSubsequence('civic')).toEqual('civic');
   });
 });
