@@ -1,8 +1,10 @@
+
 import lcs from '../longest-common-subsequence';
 import longestInCreasingSubsequence from '../longest-increasing-subsequence';
 import longestPalindromeSubsequence from '../longest-palindrome-subsequence';
 import matrixChainOrder from '../matrix-chain-order';
 import optimalBST from '../optimal-binary-search-tree';
+import textJustify from '../text-justification';
 
 describe('Dynamic Programming', () => {
   it('should return matrix chain order', () => {
@@ -33,5 +35,25 @@ describe('Dynamic Programming', () => {
   it('return longest palindrome subsequence', () => {
     expect(longestPalindromeSubsequence('character')).toEqual('carac');
     expect(longestPalindromeSubsequence('civic')).toEqual('civic');
+  });
+
+  it('text justification', () => {
+    expect(textJustify([
+      'This', 'is', 'an', 'example', 'of', 'text', 'justification.',
+    ], 16)).toEqual([
+      'This    is    an',
+      'example  of text',
+      'justification.  ',
+    ]);
+    expect(textJustify([
+      'Science', 'is', 'what', 'we', 'understand', 'well', 'enough', 'to', 'explain', 'to', 'a', 'computer.', 'Art', 'is', 'everything', 'else', 'we', 'do',
+    ], 20)).toEqual([
+      'Science  is  what we',
+      'understand      well',
+      'enough to explain to',
+      'a  computer.  Art is',
+      'everything  else  we',
+      'do                  ',
+    ]);
   });
 });
