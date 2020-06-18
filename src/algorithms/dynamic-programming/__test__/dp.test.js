@@ -5,6 +5,7 @@ import longestPalindromeSubsequence from '../longest-palindrome-subsequence';
 import matrixChainOrder from '../matrix-chain-order';
 import optimalBST from '../optimal-binary-search-tree';
 import textJustify from '../text-justification';
+import isMatch from '../wildcard-matching';
 
 describe('Dynamic Programming', () => {
   it('should return matrix chain order', () => {
@@ -55,5 +56,51 @@ describe('Dynamic Programming', () => {
       'everything  else  we',
       'do                  ',
     ]);
+  });
+
+  it('isMatch', () => {
+    expect(isMatch('aa', 'a*')).toEqual(true);
+  });
+
+  it('leetcode', () => {
+    var maximalRectangle = function(matrix) {
+      const m = matrix.length + 1;
+      const n = matrix[0] ? matrix[0].length + 1 : 1;
+      const dp = [];
+      for (let i = 0; i < m; i++) {
+        dp[i] = [];
+        for (let j = 0; j < n; j++) {
+          dp[i][j] = { left: [0, 0], up: [0, 0] };
+        }
+      }
+      let max = 0;
+
+      for (let i = 1; i < m; i++) {
+        for (let j = 1; j < n; j++) {
+          if (matrix[i - 1][j - 1] === '1') {
+            dp[i][j] = [1, 1];
+            const left = [Math.min(dp[i][j - 1][0], dp[i - 1][j][0] + 1), dp[i][j - 1][1] + 1];
+            const up = [dp[i - 1][j][0] + 1, Math.min(dp[i - 1][j][1], dp[i][j - 1][1] + 1)];
+            if (left[0] * left[1] > dp[i][j][0] * dp[i][j][1]) {
+              dp[i][j] = left;
+            }
+            if (up[0] * up[1] > dp[i][j][0] * dp[i][j][1]) {
+              dp[i][j] = up;
+            }
+            max = Math.max(max, dp[0] * dp[1]);
+          }
+        }
+      }
+      console.table(dp);
+      return max;
+    };
+
+    maximalRectangle([
+      ["1","0","1","1","1","0","0","0","1","0"],
+      ["0","1","0","0","0","0","0","1","1","0"],
+      ["0","1","0","1","0","0","0","0","1","1"],
+      ["1","1","1","0","0","0","0","0","1","0"],
+      ["0","1","1","1","0","0","1","0","1","0"],
+      ["1","1","0","1","1","0","1","1","1","0"]]);
   });
 });
