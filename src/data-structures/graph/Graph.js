@@ -42,6 +42,16 @@ class Graph {
   getAllEdges() {
     return this.edges;
   }
+
+  reverse() {
+    const { edges } = this;
+    this.edges = [];
+    this.adj = {};
+    edges.forEach((edge) => {
+      edge.reverse();
+      this.addEdge(edge);
+    });
+  }
 }
 
 export default Graph;

@@ -4,6 +4,7 @@ class Vertex {
     this.value = value;
     this.color = color;
     this.d = Number.POSITIVE_INFINITY;
+    this.f = 0;
     this.predecessor = predecessor;
   }
 
@@ -11,6 +12,14 @@ class Vertex {
     this.d = Number.POSITIVE_INFINITY;
     this.color = 'white';
     this.predecessor = null;
+  }
+
+  resetColor() {
+    this.color = 'white';
+  }
+
+  isWhite() {
+    return this.color === 'white';
   }
 
   markGray() {
