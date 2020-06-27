@@ -22,6 +22,10 @@ class Vertex {
     return this.color === 'white';
   }
 
+  isBlack() {
+    return this.color === 'black';
+  }
+
   markGray() {
     this.color = 'gray';
   }

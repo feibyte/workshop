@@ -27,12 +27,26 @@ class Graph {
         this.adj[endVertex.key] = [];
       }
       this.adj[endVertex.key].push(startVertex);
+      const reverseEdge = { ...edge };
+      reverseEdge.startVertex = endVertex;
+      reverseEdge.endVertex = startVertex;
+      this.edges.push(reverseEdge);
     }
     this.edges.push(edge);
   }
 
   getAdj(vertex) {
     return this.adj[vertex.key] || [];
+  }
+
+  getEdges(startVertex) {
+    // eslint-disable-next-line max-len
+    return this.edges.filter((edge) => edge.startVertex === startVertex);
+  }
+
+  getEdge(startVertex, endVertex) {
+    // eslint-disable-next-line max-len
+    return this.edges.find((edge) => edge.startVertex === startVertex && edge.endVertex === endVertex);
   }
 
   getAllVertices() {

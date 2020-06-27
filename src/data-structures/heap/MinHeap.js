@@ -2,7 +2,7 @@ import Heap from './Heap';
 
 const defaultComparator = (pre, next) => pre - next;
 
-class MaxHeap extends Heap {
+class MinHeap extends Heap {
   constructor(array = [], compare = defaultComparator) {
     super(array);
     this.compare = compare;
@@ -10,12 +10,12 @@ class MaxHeap extends Heap {
   }
 
   isInRightPosition(child, parent) {
-    return this.compare(child, parent) > 0;
+    return this.compare(child, parent) < 0;
   }
 
-  extractMax() {
+  extractMin() {
     return super.extract();
   }
 }
 
-export default MaxHeap;
+export default MinHeap;
