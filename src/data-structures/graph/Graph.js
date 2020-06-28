@@ -8,6 +8,7 @@ class Graph {
 
   addVertex(vertex) {
     this.vertices[vertex.key] = vertex;
+    return this;
   }
 
   addEdge(edge) {
@@ -33,6 +34,7 @@ class Graph {
       this.edges.push(reverseEdge);
     }
     this.edges.push(edge);
+    return this;
   }
 
   getAdj(vertex) {
