@@ -1,8 +1,8 @@
 
 // eslint-disable-next-line max-classes-per-file
 class Node {
-  constructor(element) {
-    this.element = element;
+  constructor(val) {
+    this.val = val;
     this.prev = null;
     this.next = null;
   }
@@ -20,19 +20,20 @@ class DoublyLinkedList {
     return this.length;
   }
 
-  insert(element) {
-    const node = new Node(element);
+  insert(val) {
+    const node = new Node(val);
     node.next = this.nil.next;
     node.prev = this.nil;
     this.nil.next.prev = node;
     this.nil.next = node;
     this.length++;
+    return node;
   }
 
-  search(element) {
+  search(val) {
     let currentNode = this.nil.next;
     while (currentNode !== this.nil) {
-      if (currentNode.element === element) {
+      if (currentNode.val === val) {
         return currentNode;
       }
       currentNode = currentNode.next;
@@ -40,13 +41,37 @@ class DoublyLinkedList {
     return null;
   }
 
-  delete(element) {
-    const node = this.search(element);
+  delete(val) {
+    const node = this.search(val);
     if (node) {
       node.prev.next = node.next;
       node.next.prev = node.prev;
       this.length--;
     }
+  }
+
+  moveToFirst(node) {
+    if (this.nil.next === node) {
+      return;
+    }
+    if (node) {
+      node.prev.next = node.next;
+      node.next.prev = node.prev;
+    }
+    node.next = this.nil.next;
+    node.prev = this.nil;
+    this.nil.next.prev = node;
+    this.nil.next = node;
+  }
+
+  deleteLast() {
+    if (this.size() > 0) {
+      const toDelete = this.nil.prev;
+      toDelete.prev.next = this.nil;
+      this.nil.prev = toDelete.prev;
+      return toDelete;
+    }
+    return null;
   }
 }
 

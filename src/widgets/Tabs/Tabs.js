@@ -38,7 +38,7 @@ class Tabs {
     const navs = [...navContainer.children];
     const { panelIdSuffix } = this.options;
     navs.forEach((nav, index) => {
-      nav.setAttribute('role', 'button');
+      nav.setAttribute('role', 'tab');
       nav.setAttribute('aria-controls', `${panelIdSuffix}${index}`);
       nav.classList.add(classNames.tabNav);
       // eslint-disable-next-line no-param-reassign

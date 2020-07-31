@@ -17,8 +17,6 @@ class BinarySearchTree {
       this.inorderTraverse(node.left, callback);
       callback(node);
       this.inorderTraverse(node.right, callback);
-    } else {
-      callback(node);
     }
   }
 
@@ -30,8 +28,70 @@ class BinarySearchTree {
     }
   }
 
+  postOrderTraverse(node, callback) {
+    if (!this.isNil(node)) {
+      this.postOrderTraverse(node.left, callback);
+      this.postOrderTraverse(node.right, callback);
+      callback(node);
+    }
+  }
+
+  dfsPreOrder(callback) {
+    let current = this.root;
+    const stack = [];
+    while (current || stack.length) {
+      while (current) {
+        callback(current);
+        stack.push(current);
+        current = current.left;
+      }
+      current = stack.pop();
+      // 转右
+      current = current.right;
+    }
+  }
+
+  dfsInOrder(callback) {
+    let current = this.root;
+    const stack = [];
+    while (current || stack.length) {
+      while (current) {
+        stack.push(current);
+        current = current.left;
+      }
+      current = stack.pop();
+      callback(current);
+      // 转右
+      current = current.right;
+    }
+  }
+
+  dfsPostOrder(callback) {
+    let current = this.root;
+    const stack = [];
+    let last = null;
+    while (current || stack.length) {
+      while (current) {
+        stack.push(current);
+        current = current.left;
+      }
+
+      current = stack[stack.length - 1];
+      // 右节点为空，或者已访问（必定是上个）
+      if (current.right === null || current.right === last) {
+        stack.pop();
+        callback(current);
+        last = current; // 标记上次访问节点
+        current = null; // 该次遍历结束，从堆栈弹出
+      } else {
+        // 转右
+        current = current.right;
+      }
+    }
+  }
+
   traverse(callback) {
-    this.inorderTraverse(this.root, callback);
+    this.postOrderTraverse(this.root, callback);
   }
 
   search(key) {

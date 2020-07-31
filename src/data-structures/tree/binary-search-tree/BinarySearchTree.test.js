@@ -27,6 +27,44 @@ describe('BinarySearchTree', () => {
     return result;
   };
 
+  //                 15
+  //          6              18
+  //      3      7       17      20
+  //    2   4  NIL 13
+  //              9 NIL
+  it('dfsPreOrder', () => {
+    const tree = makeTree();
+    const result = [];
+    tree.dfsPreOrder((node) => {
+      if (node) {
+        result.push(node.key);
+      }
+    });
+    expect(result).toEqual([15, 6, 3, 2, 4, 7, 13, 9, 18, 17, 20]);
+  });
+
+  it('dfsInOrder', () => {
+    const tree = makeTree();
+    const result = [];
+    tree.dfsInOrder((node) => {
+      if (node) {
+        result.push(node.key);
+      }
+    });
+    expect(result).toEqual([2, 3, 4, 6, 7, 9, 13, 15, 17, 18, 20]);
+  });
+
+  it('dfsPostOrder', () => {
+    const tree = makeTree();
+    const result = [];
+    tree.dfsPostOrder((node) => {
+      if (node) {
+        result.push(node.key);
+      }
+    });
+    expect(result).toEqual([2, 4, 3, 9, 13, 7, 6, 17, 20, 18, 15]);
+  });
+
   it('should return a node when calling search with given in tree', () => {
     const tree = makeTree();
     expect(tree.search(6).key).toBe(6);

@@ -34,6 +34,8 @@ describe('Dynamic Programming', () => {
   });
 
   it('return longest palindrome subsequence', () => {
+    expect(longestPalindromeSubsequence('a')).toEqual('a');
+    expect(longestPalindromeSubsequence('aa')).toEqual('aa');
     expect(longestPalindromeSubsequence('character')).toEqual('carac');
     expect(longestPalindromeSubsequence('civic')).toEqual('civic');
   });
