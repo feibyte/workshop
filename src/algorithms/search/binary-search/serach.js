@@ -69,7 +69,6 @@ export const findMedianSortedArrays = (nums1, nums2) => {
   return (select(nums1, nums2, floor) + select(nums1, nums2, ceil)) / 2;
 };
 
-
 export const searchInRotated = (nums, target) => {
   let left = 0;
   let right = nums.length - 1;

@@ -20,7 +20,6 @@ describe('OpenAddressHashTable', () => {
     expect(hashTable.get('shark')).toBeFalsy();
   });
 
-
   it('should work even the key has same hash value', () => {
     const hashTable = new OpenAddressHashTable();
     hashTable.set('dog', { type: 'animal' });
@@ -35,7 +34,7 @@ describe('OpenAddressHashTable', () => {
 
   it('should rehasing when size become larger', () => {
     const hashTable = new OpenAddressHashTable();
-    (new Array(20)).fill(0).forEach((item, index) => {
+    new Array(20).fill(0).forEach((item, index) => {
       hashTable.set(index, index);
     });
 

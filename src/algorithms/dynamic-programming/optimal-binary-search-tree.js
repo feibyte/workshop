@@ -1,4 +1,3 @@
-
 const printBST = (root, i, j, parent) => {
   if (i > j) {
     return;

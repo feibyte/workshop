@@ -33,11 +33,8 @@ describe('stronglyConnectedComponents', () => {
     const mapKey = (vertex) => vertex.key;
 
     expect(stronglyConnectedComponents(graph).length).toBe(4);
-    expect(stronglyConnectedComponents(graph).map((group) => group.map(mapKey))).toEqual([
-      ['y'],
-      ['x', 'w'],
-      ['u', 't'],
-      ['v', 's', 'r'],
-    ]);
+    expect(
+      stronglyConnectedComponents(graph).map((group) => group.map(mapKey)),
+    ).toEqual([['y'], ['x', 'w'], ['u', 't'], ['v', 's', 'r']]);
   });
 });

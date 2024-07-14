@@ -1,4 +1,3 @@
-
 import lcs from '../longest-common-subsequence';
 import longestInCreasingSubsequence from '../longest-increasing-subsequence';
 import longestPalindromeSubsequence from '../longest-palindrome-subsequence';
@@ -9,8 +8,12 @@ import isMatch from '../wildcard-matching';
 
 describe('Dynamic Programming', () => {
   it('should return matrix chain order', () => {
-    expect(matrixChainOrder([30, 35, 15, 5, 10, 20, 25])).toEqual('((A1(A2A3))((A4A5)A6))');
-    expect(matrixChainOrder([5, 10, 3, 12, 5, 50, 6])).toEqual('((A1A2)((A3A4)(A5A6)))');
+    expect(matrixChainOrder([30, 35, 15, 5, 10, 20, 25])).toEqual(
+      '((A1(A2A3))((A4A5)A6))',
+    );
+    expect(matrixChainOrder([5, 10, 3, 12, 5, 50, 6])).toEqual(
+      '((A1A2)((A3A4)(A5A6)))',
+    );
   });
 
   it('should return longest common subsequence', () => {
@@ -18,7 +21,9 @@ describe('Dynamic Programming', () => {
   });
 
   it('should return longest increasing subsequence', () => {
-    expect(longestInCreasingSubsequence([99, 3, 5, 20, 7, 9, 11])).toEqual([3, 5, 7, 9, 11]);
+    expect(longestInCreasingSubsequence([99, 3, 5, 20, 7, 9, 11])).toEqual([
+      3, 5, 7, 9, 11,
+    ]);
   });
 
   it('should return optimal expectation', () => {
@@ -41,16 +46,37 @@ describe('Dynamic Programming', () => {
   });
 
   it('text justification', () => {
-    expect(textJustify([
-      'This', 'is', 'an', 'example', 'of', 'text', 'justification.',
-    ], 16)).toEqual([
-      'This    is    an',
-      'example  of text',
-      'justification.  ',
-    ]);
-    expect(textJustify([
-      'Science', 'is', 'what', 'we', 'understand', 'well', 'enough', 'to', 'explain', 'to', 'a', 'computer.', 'Art', 'is', 'everything', 'else', 'we', 'do',
-    ], 20)).toEqual([
+    expect(
+      textJustify(
+        ['This', 'is', 'an', 'example', 'of', 'text', 'justification.'],
+        16,
+      ),
+    ).toEqual(['This    is    an', 'example  of text', 'justification.  ']);
+    expect(
+      textJustify(
+        [
+          'Science',
+          'is',
+          'what',
+          'we',
+          'understand',
+          'well',
+          'enough',
+          'to',
+          'explain',
+          'to',
+          'a',
+          'computer.',
+          'Art',
+          'is',
+          'everything',
+          'else',
+          'we',
+          'do',
+        ],
+        20,
+      ),
+    ).toEqual([
       'Science  is  what we',
       'understand      well',
       'enough to explain to',
@@ -65,7 +91,7 @@ describe('Dynamic Programming', () => {
   });
 
   it('leetcode', () => {
-    var maximalRectangle = function(matrix) {
+    var maximalRectangle = (matrix) => {
       const m = matrix.length + 1;
       const n = matrix[0] ? matrix[0].length + 1 : 1;
       const dp = [];
@@ -81,8 +107,14 @@ describe('Dynamic Programming', () => {
         for (let j = 1; j < n; j++) {
           if (matrix[i - 1][j - 1] === '1') {
             dp[i][j] = [1, 1];
-            const left = [Math.min(dp[i][j - 1][0], dp[i - 1][j][0] + 1), dp[i][j - 1][1] + 1];
-            const up = [dp[i - 1][j][0] + 1, Math.min(dp[i - 1][j][1], dp[i][j - 1][1] + 1)];
+            const left = [
+              Math.min(dp[i][j - 1][0], dp[i - 1][j][0] + 1),
+              dp[i][j - 1][1] + 1,
+            ];
+            const up = [
+              dp[i - 1][j][0] + 1,
+              Math.min(dp[i - 1][j][1], dp[i][j - 1][1] + 1),
+            ];
             if (left[0] * left[1] > dp[i][j][0] * dp[i][j][1]) {
               dp[i][j] = left;
             }
@@ -98,11 +130,12 @@ describe('Dynamic Programming', () => {
     };
 
     maximalRectangle([
-      ["1","0","1","1","1","0","0","0","1","0"],
-      ["0","1","0","0","0","0","0","1","1","0"],
-      ["0","1","0","1","0","0","0","0","1","1"],
-      ["1","1","1","0","0","0","0","0","1","0"],
-      ["0","1","1","1","0","0","1","0","1","0"],
-      ["1","1","0","1","1","0","1","1","1","0"]]);
+      ['1', '0', '1', '1', '1', '0', '0', '0', '1', '0'],
+      ['0', '1', '0', '0', '0', '0', '0', '1', '1', '0'],
+      ['0', '1', '0', '1', '0', '0', '0', '0', '1', '1'],
+      ['1', '1', '1', '0', '0', '0', '0', '0', '1', '0'],
+      ['0', '1', '1', '1', '0', '0', '1', '0', '1', '0'],
+      ['1', '1', '0', '1', '1', '0', '1', '1', '1', '0'],
+    ]);
   });
 });

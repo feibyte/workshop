@@ -1,5 +1,5 @@
-import { SHAPES, COL_NUM, ROW_NUM } from './constants.js';
 import drawBoard from './board.js';
+import { COL_NUM, ROW_NUM, SHAPES } from './constants.js';
 import drawShapeBox from './shapeBox.js';
 
 const shapeGenerator = () => SHAPES[Math.floor(Math.random() * SHAPES.length)];

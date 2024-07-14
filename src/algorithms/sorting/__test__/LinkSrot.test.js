@@ -1,4 +1,4 @@
-import { partition, mergeSort } from '../LinkSort';
+import { mergeSort, partition } from '../LinkSort';
 
 describe('LinkSort', () => {
   it('should', () => {

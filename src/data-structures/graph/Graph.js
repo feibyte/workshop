@@ -48,7 +48,10 @@ class Graph {
 
   getEdge(startVertex, endVertex) {
     // eslint-disable-next-line max-len
-    return this.edges.find((edge) => edge.startVertex === startVertex && edge.endVertex === endVertex);
+    return this.edges.find(
+      (edge) =>
+        edge.startVertex === startVertex && edge.endVertex === endVertex,
+    );
   }
 
   getAllVertices() {

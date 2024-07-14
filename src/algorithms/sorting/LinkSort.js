@@ -1,4 +1,3 @@
-
 const merge = (l, r) => {
   const head = { next: null };
   let current = head;
@@ -39,5 +38,3 @@ export const mergeSort = (link) => {
   }
   return link;
 };
-
-

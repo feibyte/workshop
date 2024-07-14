@@ -29,6 +29,15 @@ describe('breadthFirstSearch', () => {
     const callback = (vertex) => vertices.push(vertex);
     breadthFirstSearch(graph, s, callback);
 
-    expect(vertices.map((vertex) => vertex.value)).toEqual(['s', 'r', 'w', 'v', 't', 'x', 'u', 'y']);
+    expect(vertices.map((vertex) => vertex.value)).toEqual([
+      's',
+      'r',
+      'w',
+      'v',
+      't',
+      'x',
+      'u',
+      'y',
+    ]);
   });
 });

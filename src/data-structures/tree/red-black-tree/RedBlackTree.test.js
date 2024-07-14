@@ -1,6 +1,5 @@
 import RedBlackTree from './RedBlackTree';
 
-
 describe('RedBlackTree', () => {
   const makeTree = () => {
     const tree = new RedBlackTree();

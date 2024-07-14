@@ -19,10 +19,16 @@ class Heap {
     const right = 2 * i + 2;
     let maxIndex = i;
     const len = this.array.length;
-    if (left < len && this.isInRightPosition(this.array[left], this.array[maxIndex])) {
+    if (
+      left < len &&
+      this.isInRightPosition(this.array[left], this.array[maxIndex])
+    ) {
       maxIndex = left;
     }
-    if (right < len && this.isInRightPosition(this.array[right], this.array[maxIndex])) {
+    if (
+      right < len &&
+      this.isInRightPosition(this.array[right], this.array[maxIndex])
+    ) {
       maxIndex = right;
     }
     if (maxIndex !== i) {
@@ -44,7 +50,10 @@ class Heap {
 
   swim(i) {
     const parent = Math.floor((i + 1) / 2 - 1);
-    if (parent >= 0 && this.isInRightPosition(this.array[i], this.array[parent])) {
+    if (
+      parent >= 0 &&
+      this.isInRightPosition(this.array[i], this.array[parent])
+    ) {
       this.exchange(i, parent);
       this.swim(parent);
     }

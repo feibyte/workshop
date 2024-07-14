@@ -44,13 +44,16 @@ describe('bellmanFord', () => {
       .addEdge(edgeEG);
 
     const result = bellmanFord(graph, vertexA);
-    const distances = graph.getAllVertices().reduce((acc, vertex) => ({
-      ...acc,
-      [vertex.key]: vertex.d,
-    }), {});
+    const distances = graph.getAllVertices().reduce(
+      (acc, vertex) => ({
+        ...acc,
+        [vertex.key]: vertex.d,
+      }),
+      {},
+    );
     expect(result).toBe(true);
     expect(distances).toEqual({
-      H: Infinity,
+      H: Number.POSITIVE_INFINITY,
       A: 0,
       B: 4,
       E: 7,

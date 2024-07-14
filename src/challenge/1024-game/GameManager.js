@@ -23,10 +23,8 @@ const isSameTiles = (tiles1, tiles2) => {
   return true;
 };
 
-const reverseTiles = (tiles) => (new Array(SIZE)
-  .fill(undefined)
-  .concat(tiles.reverse()))
-  .slice(-SIZE);
+const reverseTiles = (tiles) =>
+  new Array(SIZE).fill(undefined).concat(tiles.reverse()).slice(-SIZE);
 
 class GameManager {
   constructor() {
@@ -83,7 +81,10 @@ class GameManager {
   checkValidate() {
     for (let i = 0; i < SIZE; i++) {
       for (let j = 0; j < SIZE; j++) {
-        if (this.tiles[i][j] && (this.tiles[i][j].x !== i || this.tiles[i][j].y !== j)) {
+        if (
+          this.tiles[i][j] &&
+          (this.tiles[i][j].x !== i || this.tiles[i][j].y !== j)
+        ) {
           console.warn(this.tiles[i][j]);
         }
       }
@@ -111,7 +112,10 @@ class GameManager {
           updatePos(buffer[i + 1], k);
           this.usedTiles.push(buffer[i]);
           this.usedTiles.push(buffer[i + 1]);
-          const merged = this.createNewTile(buffer[i].number * 2, reverse([x, k]));
+          const merged = this.createNewTile(
+            buffer[i].number * 2,
+            reverse([x, k]),
+          );
           merged.merged();
           result.push(merged);
           i++;
@@ -163,7 +167,7 @@ class GameManager {
     for (let j = 0; j < SIZE; j++) {
       const colTiles = [];
       // eslint-disable-next-line no-return-assign
-      this.traverseCol(j, (tile, i) => colTiles[i] = tile);
+      this.traverseCol(j, (tile, i) => (colTiles[i] = tile));
       const buffer = colTiles.filter(Boolean);
       if (isDown) {
         buffer.reverse();
@@ -190,11 +194,17 @@ class GameManager {
   checkGameCanMove() {
     for (let i = 0; i < SIZE; i++) {
       for (let j = 0; j < SIZE; j++) {
-        if (this.tiles[i][j + 1] && this.tiles[i][j].number === this.tiles[i][j + 1].number) {
+        if (
+          this.tiles[i][j + 1] &&
+          this.tiles[i][j].number === this.tiles[i][j + 1].number
+        ) {
           return true;
         }
-        if (this.tiles[i + 1] && this.tiles[i + 1][j]
-          && this.tiles[i][j].number === this.tiles[i + 1][j].number) {
+        if (
+          this.tiles[i + 1] &&
+          this.tiles[i + 1][j] &&
+          this.tiles[i][j].number === this.tiles[i + 1][j].number
+        ) {
           return true;
         }
       }

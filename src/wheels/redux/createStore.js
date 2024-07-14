@@ -1,4 +1,3 @@
-
 const INIT_ACTION = '@INIT_ACTION';
 
 // This is a naive implementation of createStore.

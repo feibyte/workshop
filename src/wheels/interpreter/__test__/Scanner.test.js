@@ -49,24 +49,31 @@ describe('Scanner', () => {
       token = scanner.lex();
       tokens.push(token);
     } while (token && token.type !== 'EOF');
-    expect(tokens).toEqual([{
-      type: 'Punctuator',
-      value: '(',
-    }, {
-      type: 'Punctuator',
-      value: '*',
-    }, {
-      type: 'Numeric',
-      value: 13,
-    }, {
-      type: 'Numeric',
-      value: 5,
-    }, {
-      type: 'Punctuator',
-      value: ')',
-    }, {
-      type: 'EOF',
-      value: '',
-    }]);
+    expect(tokens).toEqual([
+      {
+        type: 'Punctuator',
+        value: '(',
+      },
+      {
+        type: 'Punctuator',
+        value: '*',
+      },
+      {
+        type: 'Numeric',
+        value: 13,
+      },
+      {
+        type: 'Numeric',
+        value: 5,
+      },
+      {
+        type: 'Punctuator',
+        value: ')',
+      },
+      {
+        type: 'EOF',
+        value: '',
+      },
+    ]);
   });
 });

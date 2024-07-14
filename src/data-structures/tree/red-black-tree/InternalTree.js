@@ -18,7 +18,11 @@ class InternalTree extends RedBlackTree {
   }
 
   calculateMax(node) {
-    node.meta.max = Math.max(node.key[1], node.left.meta.max, node.right.meta.max);
+    node.meta.max = Math.max(
+      node.key[1],
+      node.left.meta.max,
+      node.right.meta.max,
+    );
   }
 
   insertCallBack(newNode) {

@@ -34,7 +34,9 @@ class Tabs {
   }
 
   createNav() {
-    const navContainer = this.root.querySelector(`.${classNames.tabNavContainer}`);
+    const navContainer = this.root.querySelector(
+      `.${classNames.tabNavContainer}`,
+    );
     const navs = [...navContainer.children];
     const { panelIdSuffix } = this.options;
     navs.forEach((nav, index) => {
@@ -47,7 +49,9 @@ class Tabs {
   }
 
   createPanels() {
-    const panelsContainer = this.root.querySelector(`.${classNames.tabPanelContainer}`);
+    const panelsContainer = this.root.querySelector(
+      `.${classNames.tabPanelContainer}`,
+    );
     const panels = [...panelsContainer.children];
     const { panelIdSuffix } = this.options;
     panels.forEach((tabPanel, index) => {
@@ -65,7 +69,7 @@ class Tabs {
   onClick(event) {
     const { target } = event;
     if (target.classList && target.classList.contains(classNames.tabNav)) {
-      const index = parseInt(target.dataset.index, 10);
+      const index = Number.parseInt(target.dataset.index, 10);
       this.activate(index);
     }
   }
@@ -75,7 +79,7 @@ class Tabs {
     if (target.classList && target.classList.contains(classNames.tabNav)) {
       if (KeyCode.isEnter(keyCode) || KeyCode.isSpace(keyCode)) {
         event.preventDefault();
-        const index = parseInt(target.dataset.index, 10);
+        const index = Number.parseInt(target.dataset.index, 10);
         this.activate(index);
       }
     }

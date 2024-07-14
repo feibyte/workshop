@@ -1,5 +1,12 @@
 import {
-  memorize, curry, throttle, deepClone, fakeInstanceOf, mockCall, simplifyNums, flatObj,
+  curry,
+  deepClone,
+  fakeInstanceOf,
+  flatObj,
+  memorize,
+  mockCall,
+  simplifyNums,
+  throttle,
 } from './underscore';
 
 describe('curry', () => {
@@ -127,8 +134,12 @@ describe('mockCall', () => {
     delete Function.prototype.mockCall;
   });
 
-  function getName() { return this.name; }
-  function add(num1, num2) { return this.num + num1 + num2; }
+  function getName() {
+    return this.name;
+  }
+  function add(num1, num2) {
+    return this.num + num1 + num2;
+  }
   it('should return current prop given call is on object', () => {
     expect(getName.mockCall({ name: 'mockCall' })).toEqual('mockCall');
   });
@@ -146,7 +157,12 @@ describe('mockCall', () => {
 describe('simplifyNums', () => {
   it('should return compressed', () => {
     expect(simplifyNums([1, 2, 3, 5, 7, 8, 9])).toEqual(['1~3', '5', '7~9']);
-    expect(simplifyNums([1, 2, 3, 5, 20, 7, 8, 9])).toEqual(['1~3', '5', '20', '7~9']);
+    expect(simplifyNums([1, 2, 3, 5, 20, 7, 8, 9])).toEqual([
+      '1~3',
+      '5',
+      '20',
+      '7~9',
+    ]);
   });
 });
 

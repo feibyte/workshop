@@ -8,7 +8,7 @@ class OpenAddressHashTable {
   hash(key) {
     let hashCode = 7; // 随机选择的初始值
     for (let i = 0; i < key.length; i++) {
-      hashCode = ((hashCode * 31) + key.charCodeAt(i)) % this.bucketSize;
+      hashCode = (hashCode * 31 + key.charCodeAt(i)) % this.bucketSize;
     }
     return hashCode;
   }

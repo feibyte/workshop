@@ -23,8 +23,10 @@ class RedBlackTreeWithSize extends RedBlackTree {
   }
 
   recalculateOnRotation(oldParent, newParent) {
-    oldParent.meta.size = oldParent.left.meta.size + oldParent.right.meta.size + 1;
-    newParent.meta.size = newParent.left.meta.size + newParent.left.meta.size + 1;
+    oldParent.meta.size =
+      oldParent.left.meta.size + oldParent.right.meta.size + 1;
+    newParent.meta.size =
+      newParent.left.meta.size + newParent.left.meta.size + 1;
   }
 
   select(i) {

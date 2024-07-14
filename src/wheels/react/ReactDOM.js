@@ -7,11 +7,12 @@ const createPublicInstance = (element, internalInstance) => {
   return publicInstance;
 };
 
-const isPrimitive = (element) => (typeof element === 'boolean'
-    || typeof element === 'string'
-    || typeof element === 'number'
-    || element === null
-    || element === undefined);
+const isPrimitive = (element) =>
+  typeof element === 'boolean' ||
+  typeof element === 'string' ||
+  typeof element === 'number' ||
+  element === null ||
+  element === undefined;
 
 const updateDomProperties = (dom, prevProps = {}, nextProps = {}) => {
   Object.keys(prevProps).forEach((key) => {
@@ -52,11 +53,14 @@ const instantiate = (element) => {
     const { type, props = {} } = element;
     const dom = document.createElement(type);
     updateDomProperties(dom, {}, props);
-    const childrenInstances = (props.children || []).filter(Boolean)
+    const childrenInstances = (props.children || [])
+      .filter(Boolean)
       .map((child) => instantiate(child));
     childrenInstances.map(({ dom: childDom }) => dom.appendChild(childDom));
     return {
-      dom, element, childrenInstances,
+      dom,
+      element,
+      childrenInstances,
     };
   }
   // Customized component
@@ -66,7 +70,10 @@ const instantiate = (element) => {
   const childInstance = instantiate(childElement);
   const { dom } = childInstance;
   Object.assign(instance, {
-    dom, element, publicInstance, childInstance,
+    dom,
+    element,
+    publicInstance,
+    childInstance,
   });
   return instance;
 };
@@ -114,7 +121,11 @@ const reconcileChildren = (instance, element) => {
   const newChildInstances = [];
   const count = Math.max(childrenInstances.length, nextChildElements.length);
   for (let i = 0; i < count; i++) {
-    const newChildInstance = reconcile(dom, childrenInstances[i], nextChildElements[i]);
+    const newChildInstance = reconcile(
+      dom,
+      childrenInstances[i],
+      nextChildElements[i],
+    );
     newChildInstances.push(newChildInstance);
   }
   return newChildInstances;

@@ -99,7 +99,10 @@ describe('Enhance dispatch', () => {
   };
 
   it('should be able to work with async function by wrapping with enhancerV2', () => {
-    const thunk = (store) => (next) => (action) => (typeof action === 'function' ? action(store.dispatch, store.getState) : next(action));
+    const thunk = (store) => (next) => (action) =>
+      typeof action === 'function'
+        ? action(store.dispatch, store.getState)
+        : next(action);
     const store = enhancerV2(createStore(counter), [thunk]);
     store.dispatch((dispatch) => {
       setTimeout(() => {

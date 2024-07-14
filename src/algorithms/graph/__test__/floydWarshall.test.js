@@ -4,9 +4,21 @@ describe('floydWarshall', () => {
   const graph = [
     [0, 3, 8, Number.POSITIVE_INFINITY, -4],
     [Number.POSITIVE_INFINITY, 0, Number.POSITIVE_INFINITY, 1, 7],
-    [Number.POSITIVE_INFINITY, 4, 0, Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY],
+    [
+      Number.POSITIVE_INFINITY,
+      4,
+      0,
+      Number.POSITIVE_INFINITY,
+      Number.POSITIVE_INFINITY,
+    ],
     [2, Number.POSITIVE_INFINITY, -5, 0, Number.POSITIVE_INFINITY],
-    [Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY, 6, 0],
+    [
+      Number.POSITIVE_INFINITY,
+      Number.POSITIVE_INFINITY,
+      Number.POSITIVE_INFINITY,
+      6,
+      0,
+    ],
   ];
   it('should return correct matrix of weights', () => {
     floydWarshall(graph);

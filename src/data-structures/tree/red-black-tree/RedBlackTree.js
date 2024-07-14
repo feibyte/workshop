@@ -1,5 +1,5 @@
-import BinarySearchTree from '../binary-search-tree/BinarySearchTree';
 import TreeNode from '../TreeNode';
+import BinarySearchTree from '../binary-search-tree/BinarySearchTree';
 
 export const COLOR = { RED: 'RED', BLACK: 'BLACK' };
 // 在插入操作中，不需要 NIL 也能处理。在红黑树删除的过程中，需要借助哨兵节点 NIL.
@@ -97,7 +97,8 @@ class RedBlackTree extends BinarySearchTree {
     this.markRed(grandParent);
     if (node === node.parent.right) {
       this.leftRotate(grandParent);
-    } else { // node === node.parent.left
+    } else {
+      // node === node.parent.left
       this.rightRotate(grandParent);
     }
   }
@@ -226,7 +227,10 @@ class RedBlackTree extends BinarySearchTree {
 
       let blacks = 0;
       if (this.isRed(node)) {
-        if ((node.left && this.isRed(node.left)) || (node.right && this.isRed(node.right))) {
+        if (
+          (node.left && this.isRed(node.left)) ||
+          (node.right && this.isRed(node.right))
+        ) {
           return [false, 0];
         }
       } else {
@@ -235,7 +239,8 @@ class RedBlackTree extends BinarySearchTree {
 
       const leftResult = isBalance(node.left);
       const rightResult = isBalance(node.right);
-      const isValid = leftResult[0] && rightResult[0] && leftResult[1] === rightResult[1];
+      const isValid =
+        leftResult[0] && rightResult[0] && leftResult[1] === rightResult[1];
 
       return [isValid, leftResult[1] + blacks];
     };

@@ -9,7 +9,6 @@ const printOptimalParens = (s, i, j) => {
   return `(${printOptimalParens(s, i, s[i][j])}${printOptimalParens(s, s[i][j] + 1, j)})`;
 };
 
-
 const matrixChainOrder = (nums) => {
   const m = [];
   const s = [];
@@ -22,7 +21,8 @@ const matrixChainOrder = (nums) => {
 
   // 斜对角方向遍历
   for (let l = 1; l < n; l++) {
-    for (let i = 1; i < n - l; i++) { // [30, 35] 第二个数字才算是第一个矩阵
+    for (let i = 1; i < n - l; i++) {
+      // [30, 35] 第二个数字才算是第一个矩阵
       const j = i + l;
       m[i][j] = Number.POSITIVE_INFINITY;
       for (let k = i; k < j; k++) {

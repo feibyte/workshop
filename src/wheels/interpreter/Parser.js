@@ -73,10 +73,10 @@ class Parser {
   expect(realNode, expected) {
     let result = true;
     if (expected.type !== undefined) {
-      result = result && (realNode.type === expected.type);
+      result = result && realNode.type === expected.type;
     }
     if (expected.value !== undefined) {
-      result = result && (realNode.value === expected.value);
+      result = result && realNode.value === expected.value;
     }
     if (result !== true) {
       console.warn('RealNode is not match expected', realNode, expected);

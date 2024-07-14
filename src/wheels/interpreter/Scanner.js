@@ -14,7 +14,6 @@ const Numeric = /[0-9]+/;
 
 const Punctuator = ['+', '-', '*', '/', '(', ')', '[', ']'];
 
-
 class Scanner {
   constructor(code) {
     this.source = code;
@@ -28,7 +27,7 @@ class Scanner {
   skipWhiteSpace() {
     while (!this.eof()) {
       const ch = this.source.charCodeAt(this.index);
-      if (ch === 0x20 || ch === 0x0A) {
+      if (ch === 0x20 || ch === 0x0a) {
         this.index++;
       } else {
         break;

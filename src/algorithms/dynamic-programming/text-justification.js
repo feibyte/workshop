@@ -1,4 +1,3 @@
-
 // 文本对齐 https://leetcode.com/problems/text-justification/
 
 const nSpaces = (n) => ' '.repeat(n);
@@ -12,8 +11,12 @@ const distributeWords = (words, maxWidth, isLast) => {
   }
   const floorSpaces = Math.floor(spaces / (words.length - 1));
   const ceilSpacesNum = spaces - floorSpaces * (words.length - 1);
-  const leftWords = words.slice(0, ceilSpacesNum + 1).join(nSpaces(floorSpaces + 1));
-  const newWords = ceilSpacesNum ? [leftWords].concat(words.slice(ceilSpacesNum + 1)) : words;
+  const leftWords = words
+    .slice(0, ceilSpacesNum + 1)
+    .join(nSpaces(floorSpaces + 1));
+  const newWords = ceilSpacesNum
+    ? [leftWords].concat(words.slice(ceilSpacesNum + 1))
+    : words;
   return newWords.join(nSpaces(floorSpaces));
 };
 // dp[n] = 0;

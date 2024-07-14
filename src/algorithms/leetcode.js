@@ -1,4 +1,4 @@
-const lengthOfLongestSubstring = function (s) {
+const lengthOfLongestSubstring = (s) => {
   const map = {};
   let result = 0;
   let k = 0;
@@ -13,7 +13,7 @@ const lengthOfLongestSubstring = function (s) {
   return result;
 };
 
-const findMedianSortedArrays = function (nums1, nums2) {
+const findMedianSortedArrays = (nums1, nums2) => {
   const nums = [];
   let i = 0;
   let j = 0;
@@ -37,7 +37,7 @@ const findMedianSortedArrays = function (nums1, nums2) {
   return (nums[Math.floor(len / 2)] + nums[Math.floor((len - 1) / 2)]) / 2;
 };
 
-const longestPalindrome = function (s) {
+const longestPalindrome = (s) => {
   let result = { l: 0, r: 0 };
   let max = -1;
   for (let i = 0; i < s.length; i++) {
@@ -70,7 +70,7 @@ const longestPalindrome = function (s) {
   }
   return s.slice(result.l, result.r + 1);
 };
-const isMatch2 = function (s, p) {
+const isMatch2 = (s, p) => {
   if (!p) return !s;
   const isFirstMatch = s && (s[0] === p[0] || p[0] === '.');
   if (p[1] === '*') {
@@ -78,7 +78,7 @@ const isMatch2 = function (s, p) {
   }
   return isFirstMatch && isMatch(s.slice(1), p.slice(1));
 };
-var isMatch = function (s, p) {
+var isMatch = (s, p) => {
   const dp = [];
   const _isMatch = (si, pi) => {
     if (dp[si] && dp[si][pi] != undefined) return dp[si][pi];
@@ -101,7 +101,7 @@ var isMatch = function (s, p) {
   return _isMatch(0, 0);
 };
 
-const longestValidParentheses1 = function (s) {
+const longestValidParentheses1 = (s) => {
   let max = 0;
   const _longestValidParentheses = (leftNums, si, count) => {
     if (si >= s.length) {
@@ -126,7 +126,7 @@ const longestValidParentheses1 = function (s) {
   return max;
 };
 
-const longestValidParentheses = function (s) {
+const longestValidParentheses = (s) => {
   const num = [];
   let l = 0;
   for (let i = 0; i < s.length; i++) {
@@ -158,7 +158,7 @@ const longestValidParentheses = function (s) {
   return Math.max(...continiousPositiveNum);
 };
 
-const findTargetSumWays = function (nums, S) {
+const findTargetSumWays = (nums, S) => {
   let count = 0;
   const _findTargetSumWays = (index, sum) => {
     if (index >= nums.length) {
@@ -175,7 +175,7 @@ const findTargetSumWays = function (nums, S) {
   return count;
 };
 
-const canPartition = function (nums) {
+const canPartition = (nums) => {
   const sum = nums.reduce((acc, num) => acc + num);
   const isOdd = sum % 2;
   if (isOdd) {
@@ -193,7 +193,9 @@ const canPartition = function (nums) {
     } else if (target < 0 || index >= nums.length) {
       found = false;
     } else {
-      found = findTragetSum(index + 1, target - nums[index]) || findTragetSum(index + 1, target);
+      found =
+        findTragetSum(index + 1, target - nums[index]) ||
+        findTragetSum(index + 1, target);
     }
     memo[index] = memo[index] || {};
     memo[index][target] = found;
@@ -202,13 +204,14 @@ const canPartition = function (nums) {
   return findTragetSum(0, targetSum);
 };
 
-const coinChange = function (coins, amount2) {
+const coinChange = (coins, amount2) => {
   const sortedCoins = coins.sort((a, b) => b - a);
   const memo = {};
   const dfs = (amount) => {
     if (amount == 0) {
       return 0;
-    } if (amount < 0) {
+    }
+    if (amount < 0) {
       return -1;
     }
     // if (memo[amount] != undefined) {
@@ -267,7 +270,7 @@ const hasZero = (nums) => nums.find((num) => num == 0);
  * @param {number[]} nums
  * @return {number}
  */
-const maxProduct = function (nums) {
+const maxProduct = (nums) => {
   const numsWithoutZero = splitNumsByZero(nums);
   console.log(numsWithoutZero);
   const calcMaxProduct = (nonZeroNums) => {
@@ -275,16 +278,21 @@ const maxProduct = function (nums) {
       return 1;
     }
     const negNums = nonZeroNums.filter(isNegtive).length;
-    if (negNums % 2 == 0) { // even
+    if (negNums % 2 == 0) {
+      // even
       return product(nonZeroNums);
     }
     const firstNegIndex = nonZeroNums.findIndex(isNegtive);
     const numsAfterFirstNegtive = nonZeroNums.slice(firstNegIndex + 1);
-    const productAfterFirstNegtive = numsAfterFirstNegtive.length ? product(numsAfterFirstNegtive) : nonZeroNums[firstNegIndex];
+    const productAfterFirstNegtive = numsAfterFirstNegtive.length
+      ? product(numsAfterFirstNegtive)
+      : nonZeroNums[firstNegIndex];
 
     const lastNegIndex = findLastIndex(nonZeroNums, isNegtive);
     const numsBeforeLastNeg = nonZeroNums.slice(0, lastNegIndex);
-    const productBeforeLastNegtive = numsBeforeLastNeg.length ? product(numsBeforeLastNeg) : nonZeroNums[lastNegIndex];
+    const productBeforeLastNegtive = numsBeforeLastNeg.length
+      ? product(numsBeforeLastNeg)
+      : nonZeroNums[lastNegIndex];
 
     return Math.max(productAfterFirstNegtive, productBeforeLastNegtive);
   };
@@ -296,7 +304,7 @@ const maxProduct = function (nums) {
   return result;
 };
 
-const dailyTemperatures = function (T) {
+const dailyTemperatures = (T) => {
   const result = [];
   const stack = [];
   for (let i = T.length - 1; i >= 0; i--) {

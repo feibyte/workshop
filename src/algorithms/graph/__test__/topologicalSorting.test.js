@@ -21,7 +21,6 @@ describe('topologicalSorting', () => {
     const y = new Vertex('y');
     const z = new Vertex('z');
 
-
     graph.addEdge(new Edge(m, q));
     graph.addEdge(new Edge(m, r));
     graph.addEdge(new Edge(m, x));
@@ -41,7 +40,21 @@ describe('topologicalSorting', () => {
     graph.addEdge(new Edge(w, z));
     graph.addEdge(new Edge(y, v));
 
-
-    expect(topologicalSorting(graph).map((vertex) => vertex.value)).toEqual(['p', 'n', 'o', 's', 'm', 'x', 'r', 'y', 'v', 'w', 'z', 'u', 'q', 't']);
+    expect(topologicalSorting(graph).map((vertex) => vertex.value)).toEqual([
+      'p',
+      'n',
+      'o',
+      's',
+      'm',
+      'x',
+      'r',
+      'y',
+      'v',
+      'w',
+      'z',
+      'u',
+      'q',
+      't',
+    ]);
   });
 });

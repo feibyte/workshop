@@ -25,6 +25,13 @@ describe('depthFirstSearch', () => {
     const callback = (vertex) => vertices.push(vertex);
     depthFirstSearch(graph, callback);
 
-    expect(vertices.map((vertex) => vertex.value)).toEqual(['x', 'y', 'v', 'u', 'z', 'w']);
+    expect(vertices.map((vertex) => vertex.value)).toEqual([
+      'x',
+      'y',
+      'v',
+      'u',
+      'z',
+      'w',
+    ]);
   });
 });

@@ -21,7 +21,7 @@ class ChainingHashTable {
   hash(key) {
     let hashCode = 7; // 随机选择的初始值
     for (let i = 0; i < key.length; i++) {
-      hashCode = ((hashCode * 31) + key.charCodeAt(i)) % this.bucketSize;
+      hashCode = (hashCode * 31 + key.charCodeAt(i)) % this.bucketSize;
     }
     return hashCode;
   }
@@ -29,7 +29,9 @@ class ChainingHashTable {
   set(key, value) {
     const index = this.hash(key);
     if (!this.bucket[index]) {
-      this.bucket[index] = new LinkedList((objA, objB) => objA.key === objB.key);
+      this.bucket[index] = new LinkedList(
+        (objA, objB) => objA.key === objB.key,
+      );
     }
     this.bucket[index].insert({ key, value });
   }

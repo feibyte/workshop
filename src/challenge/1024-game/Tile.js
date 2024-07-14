@@ -1,4 +1,3 @@
-
 const STEP = 116;
 
 class Tile {

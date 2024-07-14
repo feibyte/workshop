@@ -1,4 +1,3 @@
-
 const initializeSingleSource = (graph, startVertex) => {
   graph.getAllVertices().forEach((vertex) => {
     vertex.reset();

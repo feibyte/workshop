@@ -18,7 +18,10 @@ const floydWarshall = (adjMatrix) => {
           adjMatrix[i][j] = adjMatrix[i][k] + adjMatrix[k][j];
           D0[i][j] = D0[k][j];
         }
-        adjMatrix[i][j] = Math.min(adjMatrix[i][j], adjMatrix[i][k] + adjMatrix[k][j]);
+        adjMatrix[i][j] = Math.min(
+          adjMatrix[i][j],
+          adjMatrix[i][k] + adjMatrix[k][j],
+        );
       }
     }
   }

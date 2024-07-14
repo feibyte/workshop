@@ -60,7 +60,8 @@ class QuickSort {
       if (this.compare(array[j], pivot) <= 0) {
         i += 1;
         this.exchange(array, i, j);
-        if (this.compare(array[i], pivot) < 0) { // as we changed it with j
+        if (this.compare(array[i], pivot) < 0) {
+          // as we changed it with j
           t += 1;
           this.exchange(array, t, i);
         }

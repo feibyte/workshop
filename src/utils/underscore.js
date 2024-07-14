@@ -9,7 +9,6 @@ export const curry = (fn) => {
   return next;
 };
 
-
 // curry(fn);
 const curry2 = (fn, ...rest) => {
   if (rest.length < fn.length) {
@@ -122,15 +121,12 @@ export const mockCall = function (context, ...args) {
   return result;
 };
 
-const mockApply = function (context, args) {
-  return mockCall(context, ...args);
-};
+const mockApply = (context, args) => mockCall(context, ...args);
 
 const mockBind = function (context, ...defaultParams) {
-  const fn = this;
-  return function (...restParams) {
+  return (...restParams) => {
     const args = [].concat(defaultParams).concat(restParams);
-    return fn.apply(context, args);
+    return this.apply(context, args);
   };
 };
 

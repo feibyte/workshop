@@ -44,12 +44,15 @@ describe('Dijkstra', () => {
       .addEdge(edgeEG);
 
     dijkstra(graph, vertexA);
-    const distances = graph.getAllVertices().reduce((acc, vertex) => ({
-      ...acc,
-      [vertex.key]: vertex.d,
-    }), {});
+    const distances = graph.getAllVertices().reduce(
+      (acc, vertex) => ({
+        ...acc,
+        [vertex.key]: vertex.d,
+      }),
+      {},
+    );
     expect(distances).toEqual({
-      H: Infinity,
+      H: Number.POSITIVE_INFINITY,
       A: 0,
       B: 4,
       E: 7,

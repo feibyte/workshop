@@ -1,5 +1,8 @@
 import {
-  binarySearch, leftBound, findMedianSortedArrays, searchInRotated,
+  binarySearch,
+  findMedianSortedArrays,
+  leftBound,
+  searchInRotated,
 } from './serach';
 
 describe('binarySearch', () => {
@@ -45,6 +48,6 @@ describe('searchInRotated', () => {
     expect(searchInRotated([3, 1], 1)).toEqual(1);
     expect(searchInRotated([5, 1, 3], 5)).toEqual(0);
     expect(searchInRotated([5, 1, 3], 3)).toEqual(2);
-    expect(searchInRotated([5,1,2,3,4], 1)).toEqual(1);
+    expect(searchInRotated([5, 1, 2, 3, 4], 1)).toEqual(1);
   });
 });

@@ -24,8 +24,14 @@ class Story extends React.Component {
     const { name, url } = this.props;
     const { likes } = this.state;
     return React.createElement(
-      'li', null,
-      React.createElement('button', { onClick: (e) => this.like() }, likes, React.createElement('b', null, '❤')),
+      'li',
+      null,
+      React.createElement(
+        'button',
+        { onClick: (e) => this.like() },
+        likes,
+        React.createElement('b', null, '❤'),
+      ),
       React.createElement('a', { href: url }, name),
     );
   }
@@ -34,15 +40,17 @@ class Story extends React.Component {
 class App extends React.Component {
   // eslint-disable-next-line class-methods-use-this
   render() {
-    return (
+    return React.createElement(
+      'div',
+      null,
+      React.createElement('h1', null, 'Didact Stories'),
       React.createElement(
-        'div', null,
-        React.createElement('h1', null, 'Didact Stories'),
-        React.createElement(
-          'ul', null,
-          ...this.props.stories.map((story) => React.createElement(Story, { name: story.name, url: story.url })),
+        'ul',
+        null,
+        ...this.props.stories.map((story) =>
+          React.createElement(Story, { name: story.name, url: story.url }),
         ),
-      )
+      ),
     );
   }
 }
@@ -54,7 +62,4 @@ const stories = [
   { name: 'Instances and reconciliation', url: 'http://bit.ly/2q4A746' },
   { name: 'Components and state', url: 'http://bit.ly/2rE16nh' },
 ];
-ReactDOM.render(
-  React.createElement(App, { stories }),
-  container,
-);
+ReactDOM.render(React.createElement(App, { stories }), container);

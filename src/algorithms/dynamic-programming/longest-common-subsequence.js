@@ -1,4 +1,3 @@
-
 const printLCS = (s, X, i, j) => {
   if (i === 0 || j === 0) {
     return '';
